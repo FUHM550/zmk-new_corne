@@ -90,7 +90,7 @@ layers:
   - $$mdi:play-pause$$
   - $$mdi:skip-next$$
   - $$mdi:mouse-left-click-outline$$
-  - CONTEXT
+  - APP
   - {t: '`', s: '~'}
   - {t: '$$mdi:transfer$$', type: trans}
   - {type: held}
