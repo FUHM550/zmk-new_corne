@@ -1,5 +1,5 @@
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 1200  // 600
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 25   // 10
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1200
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 25
 
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
@@ -10,14 +10,18 @@
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/rgb.h>
 
-&mmv_input_listener { input-processors = <&zip_xy_scaler 2 1>; };
+&mmv_input_listener {
+    input-processors = <&zip_xy_scaler 2 1>;
+};
 
-&msc_input_listener { input-processors = <&zip_scroll_scaler 2 1>; };
+&msc_input_listener {
+    input-processors = <&zip_scroll_scaler 2 1>;
+};
 
 &msc {
-    acceleration-exponent = <1>;      // 0
-    time-to-max-speed-ms = <100>;       // 300
-    delay-ms = <0>;                   // 0
+    acceleration-exponent = <1>;
+    time-to-max-speed-ms = <100>;
+    delay-ms = <0>;
 };
 
 &mmv {
@@ -26,7 +30,9 @@
     trigger-period-ms = <16>;
 };
 
-&soft_off { hold-time-ms = <2000>; };
+&soft_off {
+    hold-time-ms = <2000>;
+};
 
 / {
     behaviors {
@@ -34,7 +40,7 @@
             compatible = "zmk,behavior-tap-dance";
             display-name = "Shift/Caps Lock Tap Dance";
             #binding-cells = <0>;
-            bindings = <&kp LEFT_SHIFT>, <&kp CAPS>;
+            bindings = <&kp LSHFT>, <&kp CAPS>;
         };
     };
 
@@ -54,7 +60,7 @@
     volume_encoder: volume_encoder {
         compatible = "zmk,behavior-sensor-rotate";
         #sensor-binding-cells = <0>;
-        bindings = <&kp C_VOLUME_UP>, <&kp C_VOLUME_DOWN>;
+        bindings = <&kp C_VOL_UP>, <&kp C_VOL_DN>;
     };
 
     combos {
@@ -71,6 +77,7 @@
 
         default_layer {
             display-name = "QWERTY";
+
             bindings = <
 &kp TAB    &kp Q  &kp W  &kp E     &kp R  &kp T                                                 &kp UP                &kp Y        &kp U  &kp I      &kp O    &kp P     &kp BSPC
 &kp LSHFT  &kp A  &kp S  &kp D     &kp F  &kp G                                      &kp LEFT  &kp ENTER  &kp RIGHT  &kp H        &kp J  &kp K      &kp L    &kp SEMI  &kp SQT
@@ -83,11 +90,12 @@
 
         lower_layer {
             display-name = "NUMBER";
+
             bindings = <
-&trans  &kp N7  &kp N8  &kp N9  &kp EQUAL  &kp SLASH                                            &mmv MOVE_UP                                     &kp PG_UP        &kp UP_ARROW     &kp PAGE_DOWN  &kp HOME  &kp NON_US_BSLH  &kp BSPC
-&trans  &kp N4  &kp N5  &kp N6  &kp N0     &kp LBKT                                 &mmv MOVE_LEFT  &mkp LCLK       &mmv MOVE_RIGHT  &kp LEFT        &kp DOWN         &kp RIGHT        &kp END   &kp CAPS         &kp DEL
-&trans  &kp N1  &kp N2  &kp N3  &kp MINUS  &kp RBKT   &kp C_MUTE                                        &mmv MOVE_DOWN                                   &kp C_PREVIOUS   &kp K_PLAY_PAUSE  &kp C_NEXT     &mkp LCLK &kp K_CONTEXT    &kp GRAVE
-                                &trans     &trans     &trans                                                                                             &trans           &trans           &trans
+&trans  &kp N7  &kp N8  &kp N9  &kp EQUAL  &kp SLASH                                            &mmv MOVE_UP                                     &kp PG_UP      &kp UP      &kp PG_DN    &kp HOME  &kp NON_US_BSLH  &kp BSPC
+&trans  &kp N4  &kp N5  &kp N6  &kp N0     &kp LBKT                                 &mmv MOVE_LEFT  &mkp LCLK       &mmv MOVE_RIGHT  &kp LEFT       &kp DOWN    &kp RIGHT    &kp END   &kp CAPS         &kp DEL
+&trans  &kp N1  &kp N2  &kp N3  &kp MINUS  &kp RBKT   &kp C_MUTE                                        &mmv MOVE_DOWN                                   &kp C_PREV     &kp C_PP    &kp C_NEXT   &mkp LCLK &kp K_CONTEXT    &kp GRAVE
+                                &trans     &trans     &trans                                                                                             &trans         &trans       &trans
             >;
 
             sensor-bindings = <&volume_encoder>;
@@ -95,9 +103,10 @@
 
         raise_layer {
             display-name = "FN&PTR";
+
             bindings = <
 &trans  &kp F9  &kp F10  &kp F11  &kp F12  &kp INS                                              &mmv MOVE_UP                                     &mkp LCLK        &mmv MOVE_UP     &mkp RCLK      &msc SCRL_UP    &none  &trans
-&trans  &kp F5  &kp F6   &kp F7   &kp F8   &kp PRINTSCREEN                          &mmv MOVE_LEFT  &mkp LCLK       &mmv MOVE_RIGHT  &mmv MOVE_LEFT  &mmv MOVE_DOWN   &mmv MOVE_RIGHT  &msc SCRL_DOWN  &none  &trans
+&trans  &kp F5  &kp F6   &kp F7   &kp F8   &kp PSCRN                                &mmv MOVE_LEFT  &mkp LCLK       &mmv MOVE_RIGHT  &mmv MOVE_LEFT  &mmv MOVE_DOWN   &mmv MOVE_RIGHT  &msc SCRL_DOWN  &none  &trans
 &trans  &kp F1  &kp F2   &kp F3   &kp F4   &none      &kp C_MUTE                                        &mmv MOVE_DOWN                                   &mkp MB3         &none            &msc SCRL_LEFT  &msc SCRL_RIGHT &none  &trans
                                   &trans   &trans     &kp SPACE                                                                                          &kp RET          &trans           &trans
             >;
@@ -107,10 +116,11 @@
 
         layer_3 {
             display-name = "VOL&RGB";
+
             bindings = <
-&trans  &none  &none  &none  &none  &mo 4                                                       &mmv MOVE_UP                                     &kp C_VOLUME_UP  &none            &none          &rgb_ug RGB_TOG  &none  &trans
-&trans  &none  &none  &none  &none  &none                                           &mmv MOVE_LEFT  &mkp LCLK       &mmv MOVE_RIGHT  &kp C_VOLUME_DN &none            &none            &rgb_ug RGB_EFF  &none  &trans
-&trans  &none  &none  &none  &none  &none      &kp C_MUTE                                           &mmv MOVE_DOWN                                   &kp C_MUTE       &none            &none            &none            &none  &trans
+&trans  &none  &none  &none  &none  &mo 4                                                       &mmv MOVE_UP                                     &kp C_VOL_UP    &none            &none          &rgb_ug RGB_TOG  &none  &trans
+&trans  &none  &none  &none  &none  &none                                           &mmv MOVE_LEFT  &mkp LCLK       &mmv MOVE_RIGHT  &kp C_VOL_DN    &none            &none            &rgb_ug RGB_EFF  &none  &trans
+&trans  &none  &none  &none  &none  &none      &kp C_MUTE                                           &mmv MOVE_DOWN                                   &kp C_MUTE      &none            &none            &none            &none  &trans
                              &trans  &trans  &trans                                                                                              &trans           &trans           &trans
             >;
 
@@ -119,6 +129,7 @@
 
         layer_4 {
             display-name = "BT";
+
             bindings = <
 &trans  &bt BT_NXT    &none         &none  &none  &none                                         &mmv MOVE_UP                                     &none            &none            &none          &none            &none  &none
 &trans  &bt BT_CLR    &none         &none  &none  &none                             &mmv MOVE_LEFT  &mkp LCLK       &mmv MOVE_RIGHT  &none           &none            &none            &none            &none  &none
